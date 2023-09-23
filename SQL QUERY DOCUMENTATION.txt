@@ -1,0 +1,41 @@
+-- 1. Berapa rata-rata umur customer jika dilihat dari marital statusnya?
+-- What is the average age of a customer based on their marital status?
+
+SELECT 
+    `Marital Status`,
+    AVG(age)
+FROM customer
+GROUP BY `Marital Status`
+
+-- 2. Berapa rata-rata umur customer jika dilihat dari gendernya?
+-- What is the average age of a customer based on gender?
+
+SELECT
+    gender,
+    AVG(age)
+FROM customer
+GROUP BY gender
+
+-- 3. Tentukan nama store dengan total quantity terbanyak!
+-- Determine the name of the store with the highest total quantity!
+
+SELECT
+    S.storename,
+    SUM(T.qty) as sum_qty
+FROM store as S
+JOIN transaction as T ON S.storeid = T.storeid
+GROUP BY S.storename
+ORDER BY sum_qty DESC
+LIMIT 1
+
+-- 4. Tentukan nama produk terlaris dengan total amount terbanyak!
+-- Determine the name of the best-selling product with the highest total amount!
+
+SELECT
+    P.`Product Name`,
+    SUM(T.totalamount) as sum_tot
+FROM product as P
+JOIN transaction as T ON P.productid = T.productid
+GROUP BY P.`Product Name`
+ORDER BY sum_tot  DESC
+LIMIT 1
